@@ -5,7 +5,7 @@ var request = require('request');
  * Mime-Type
  * Uri
  * Language
- * Size?
+ * Size
  * Title? - from html resources
  */
 exports.generate = function(uri, callback) {
@@ -18,7 +18,8 @@ exports.generate = function(uri, callback) {
                     uri: uri,
                     type: response.headers['content-type'],
                     language: response.headers['content-language'],
-                    date: response.headers['date']
+                    date: response.headers['last-modified'],
+                    size: response.headers['content-length'],
                 }
              });
           } else {
