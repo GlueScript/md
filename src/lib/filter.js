@@ -11,7 +11,7 @@ var request = require('request');
 exports.generate = function(uri, callback) {
     // make a get for uri
     request(uri, function(error, response, body) {
-         if (!error) {
+         if (!error && response.statusCode == 200) {
              callback({
                 status: 'success',
                 data: {
@@ -25,6 +25,7 @@ exports.generate = function(uri, callback) {
              console.log('Error :' + error);
              callback({
                 status: 'error', 
+                code: response.statusCode,
                 data: {
                     uri: uri
                 }
