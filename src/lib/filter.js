@@ -10,6 +10,7 @@ var request = require('request');
  */
 exports.generate = function(uri, callback) {
     // make a get for uri
+    console.log('Generate metadata for : ' + uri);
     request(uri, function(error, response, body) {
          if (!error && response.statusCode == 200) {
              callback({
