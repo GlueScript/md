@@ -16,7 +16,7 @@ var logger = new winston.Logger({
 });
 
 app.use(bodyParser.text({type : 'text/*', limit: '1024kb'}));
-//app.use(bodyParser.text({type : 'application/xml'}));
+// extend to accept a json array?
 //app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
@@ -25,8 +25,7 @@ app.get('/', function (req, res) {
 
 // expects a single uri in the post body
 app.post('/', function(req, res) {
-    // validation? let the filter module do that?
-    console.log("MD : " + req.body);
+    console.log(req.body);
     filter.generate(req.body, function(data) {
         res.json(data);
     });
