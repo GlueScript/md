@@ -16,23 +16,22 @@ var logger = new winston.Logger({
 });
 
 app.use(bodyParser.text({type : 'text/*', limit: '1024kb'}));
-app.use(bodyParser.text({type : 'application/xml'}));
+//app.use(bodyParser.text({type : 'application/xml'}));
+//app.use(bodyParser.json());
 
-// App
 app.get('/', function (req, res) {
-    res.json({"description":"Resource meta-data - generate metadata on a resource at a uri"});
+    res.json({description : "Resource meta-data - generate metadata on a resource at a uri"});
 });
 
+// expects a single uri in the post body
 app.post('/', function(req, res) {
     // validation? let the filter module do that?
-    var result = filter.generate(req.body, function(data) {
+    console.log("MD : " + req.body);
+    filter.generate(req.body, function(data) {
         res.json(data);
     });
 });
 
-// use env.PORT if set
 var PORT = process.env.PORT || 80;
-
 app.listen(PORT);
-
 logger.log('Running on http://localhost:' + PORT);
