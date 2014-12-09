@@ -25,7 +25,7 @@ exports.generate = function(uri, callback) {
              console.log('Error :' + error + ' : code ' + response.statusCode );
              callback({
                 status: 'error', 
-                code: response.statusCode,
+                code: response && response.statusCode,
                 uri: uri
              });
           }
