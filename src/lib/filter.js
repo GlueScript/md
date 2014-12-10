@@ -10,9 +10,9 @@ var request = require('request');
  * Title? - from html resources
  */
 exports.generate = function(uri, callback) {
-    // make a get for uri
+    // make a GET request for uri
     request(uri, function(error, response, body) {
-         if (!error && response.statusCode == 200) {
+         if (!error && (response && response.statusCode == 200)) {
              console.log('Success : code ' + response.statusCode );
              callback({
                 uri: uri,
@@ -22,7 +22,7 @@ exports.generate = function(uri, callback) {
                 size: response.headers['content-length'],
              });
           } else {
-             console.log('Error :' + error + ' : code ' + response.statusCode );
+             console.log(error + ' : response ' + response);
              callback({
                 status: 'error', 
                 code: response && response.statusCode,
