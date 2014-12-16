@@ -3,7 +3,10 @@
   "version": "0.2.0",
   "description": "Generates meta-data on a resource",
   "main": "index.js",
-  "respository": "git@github.com:timothy-r/md.git",
+  "repository": {
+    "url": "git@github.com:timothy-r/md.git",
+    "type": "git"
+  },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha ../test"
   },
