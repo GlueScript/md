@@ -10,8 +10,8 @@ var request = require('request');
  * Title? - from html resources
  */
 exports.generate = function(uri, callback) {
-    // make a GET request for uri
-    request(uri, function(error, response, body) {
+    // make a HEAD request for uri
+    request.head(uri, function(error, response, body) {
          if (!error && (response && response.statusCode == 200)) {
              console.log('Success : code ' + response.statusCode );
              callback(null, {
