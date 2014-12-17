@@ -14,7 +14,7 @@ exports.generate = function(uri, callback) {
     request(uri, function(error, response, body) {
          if (!error && (response && response.statusCode == 200)) {
              console.log('Success : code ' + response.statusCode );
-             callback({
+             callback(null, {
                 uri: uri,
                 type: response.headers['content-type'],
                 language: response.headers['content-language'],
@@ -23,7 +23,7 @@ exports.generate = function(uri, callback) {
              });
           } else {
              console.log(error + ' : response ' + response);
-             callback({
+             callback(null, {
                 status: 'error', 
                 code: response && response.statusCode,
                 uri: uri

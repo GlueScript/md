@@ -25,9 +25,13 @@ app.get('/', function (req, res) {
 
 // expects a single uri in the post body
 app.post('/', function(req, res) {
-    console.log(req.body);
-    filter.generate(req.body, function(data) {
-        res.json(data);
+    console.log('using : ' + req.body);
+    filter.generate(req.body, function(err, data) {
+        if (!err) {
+            res.json(data);
+        } else {
+            res.status(400).json(data);
+        }
     });
 });
 
