@@ -16,14 +16,13 @@ var logger = new winston.Logger({
 });
 
 app.use(bodyParser.text({type : 'text/*', limit: '1024kb'}));
-// extend to accept a json array?
-//app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '1024kb'}));
 
 app.get('/', function (req, res) {
     res.json({description : "Resource meta-data - generate metadata on a resource at a uri"});
 });
 
-// expects a single uri in the post body
+// expects either a single uri or a json array in the post body
 app.post('/', function(req, res) {
     console.log('using : ' + req.body);
     filter.generate(req.body, function(err, data) {

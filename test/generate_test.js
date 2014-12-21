@@ -6,11 +6,11 @@ describe('filter', function() {
         it('should return an error when request fails', function() {
             var input = 'not a uri';
             var result = filter.generate(input, function(err, result){
-                assert(result instanceof Object);
+                assert(result instanceof Array);
                 assert(!err);
-                assert.equal(result.status, 'error');
-                assert.equal(result.code, null);
-                assert.equal(result.uri, input);
+                assert.equal(result[0].status, 'error');
+                assert.equal(result[0].code, null);
+                assert.equal(result[0].uri, input);
             });
         });
     });

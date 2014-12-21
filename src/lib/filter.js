@@ -1,7 +1,8 @@
-var request = require('request');
+var request = require('request'),
+    _ = require('underscore');
 
 /*
- * Return an object containing meta-data on a resource at parameter uri
+ * Return an array of objects containing meta-data on a resource at uri
  * Uri
  * Mime-Type
  * Language
@@ -9,25 +10,35 @@ var request = require('request');
  * Size
  * Title? - from html resources
  */
-exports.generate = function(uri, callback) {
-    // make a HEAD request for uri
-    request.head(uri, function(error, response, body) {
-         if (!error && (response && response.statusCode == 200)) {
+exports.generate = function(input, callback) {
+    
+    input = _.isArray(input) ? input : [input];
+    
+    var output = [];
+    
+    _.each(input, function(uri) {
+        // make a HEAD request for uri
+        request.head(uri, function(error, response, body) {
+        if (!error && (response && response.statusCode == 200)) {
              console.log('Success : code ' + response.statusCode );
-             callback(null, {
+             output.push(
+             {
                 uri: uri,
                 type: response.headers['content-type'],
                 language: response.headers['content-language'],
                 date: response.headers['last-modified'],
                 size: response.headers['content-length'],
              });
-          } else {
+         } else {
              console.log(error + ' : response ' + response);
-             callback(null, {
+             output.push(
+             {
                 status: 'error', 
                 code: response && response.statusCode,
                 uri: uri
              });
-          }
+         }
+        });
     });
+    callback(null, output);
 };
