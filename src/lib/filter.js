@@ -19,26 +19,28 @@ exports.generate = function(input, callback) {
     _.each(input, function(uri) {
         // make a HEAD request for uri
         request.head(uri, function(error, response, body) {
-        if (!error && (response && response.statusCode == 200)) {
-             console.log('Success : code ' + response.statusCode );
-             output.push(
-             {
-                uri: uri,
-                type: response.headers['content-type'],
-                language: response.headers['content-language'],
-                date: response.headers['last-modified'],
-                size: response.headers['content-length'],
-             });
-         } else {
-             console.log(error + ' : response ' + response);
-             output.push(
-             {
-                status: 'error', 
-                code: response && response.statusCode,
-                uri: uri
-             });
-         }
+            if (!error && (response && response.statusCode == 200)) {
+                console.log('Success : code ' + response.statusCode );
+                output.push(
+                {
+                    uri: uri,
+                    type: response.headers['content-type'],
+                    language: response.headers['content-language'],
+                    date: response.headers['last-modified'],
+                    size: response.headers['content-length'],
+                });
+             } else {
+                console.log(error + ' : response ' + response);
+                output.push(
+                {
+                    status: 'error', 
+                    code: response && response.statusCode,
+                    uri: uri
+                });
+            }
+            if (output.length == input.length){
+                callback(null, output);
+            }
         });
     });
-    callback(null, output);
 };
