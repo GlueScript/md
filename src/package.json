@@ -1,6 +1,6 @@
 {
   "name": "md",
-  "version": "0.2.0",
+  "version": "0.7.1",
   "description": "Generates meta-data on a resource",
   "main": "index.js",
   "repository": {
