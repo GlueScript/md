@@ -1,4 +1,5 @@
 var request = require('request'),
+    logger = require('./logger'),
     _ = require('underscore');
 
 /*
@@ -20,7 +21,7 @@ exports.generate = function(input, callback) {
         // make a HEAD request for uri
         request.head(uri, function(error, response, body) {
             if (!error && (response && response.statusCode == 200)) {
-                console.log('Success : code ' + response.statusCode );
+                logger.log('info', 'Success : code ' + response.statusCode );
                 output.push(
                 {
                     uri: uri,
@@ -30,7 +31,7 @@ exports.generate = function(input, callback) {
                     size: response.headers['content-length'],
                 });
              } else {
-                console.log(error + ' : response ' + response);
+                logger.log('error', error + ' : response ' + response);
                 output.push(
                 {
                     status: 'error', 

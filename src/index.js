@@ -1,19 +1,7 @@
 var app = require('express')(),
-    winston = require('winston'),
+    logger = require('./lib/logger'),
     bodyParser = require('body-parser'),
     filter = require('./lib/filter');
-
-/*
-* Get winston to log uncaught exceptions and to not exit
-*/
-var logger = new winston.Logger({
-  transports: [
-    new winston.transports.Console({
-      handleExceptions: true
-    })
-  ],
-  exitOnError: false
-});
 
 app.use(bodyParser.text({type : 'text/*', limit: '1024kb'}));
 app.use(bodyParser.json({limit: '1024kb'}));
